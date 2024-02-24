@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :expense_category do
-    association :user
+    user { association :user }
     name { Faker::Commerce.department }
     description { Faker::Lorem.sentence }
   end

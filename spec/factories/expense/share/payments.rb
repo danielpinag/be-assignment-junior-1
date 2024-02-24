@@ -2,8 +2,8 @@
 
 FactoryBot.define do
   factory :expense_share_payment, class: 'Expense::Share::Payment' do
-    association :expense_share
-    association :payment_method
+    expense_share { association :expense_share }
+    payment_method { association :payment_method }
     amount { Faker::Number.decimal(l_digits: 2) }
     after(:build) do |payment|
       payment.proof.attach(

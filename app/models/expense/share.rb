@@ -3,7 +3,7 @@
 class Expense::Share < ApplicationRecord
   belongs_to :expense
   belongs_to :user
-  has_many :payments
+  has_many :payments, class_name: 'Expense::Payment'
 
   validates :amount, presence: true, numericality: { greater_than: 0 }
 

@@ -2,8 +2,8 @@
 
 FactoryBot.define do
   factory :expense do
-    association :owner, factory: :user
-    association :category, factory: :expense_category
+    owner { association :user }
+    category { association :expense_category }
     name { Faker::Commerce.product_name }
     description { Faker::Lorem.sentence }
     amount { Faker::Number.decimal(l_digits: 2) }
