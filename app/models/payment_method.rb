@@ -2,7 +2,7 @@
 
 class PaymentMethod < ApplicationRecord
   belongs_to :user
-  has_many :payments, class_name: 'Expense::Payment'
+  has_many :payments, class_name: 'Expense::Share::Payment'
 
   validates :name, :user, presence: true
   validates :name, uniqueness: { scope: :user_id }
