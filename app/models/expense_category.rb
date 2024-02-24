@@ -2,7 +2,7 @@
 
 class ExpenseCategory < ApplicationRecord
   belongs_to :user
-  has_many :expenses
+  has_many :expenses, foreign_key: 'category_id'
 
   validates :user, presence: true
   validates :name, presence: true, length: { maximum: 50 }
