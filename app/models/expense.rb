@@ -11,4 +11,6 @@ class Expense < ApplicationRecord
   validates :amount, numericality: { greater_than: 0 }
   validates :name, length: { maximum: 50 }
   validates :description, length: { maximum: 255 }
+
+  enum status: { pending: 'pending', paid: 'paid', partially_paid: 'partially_paid' }
 end
