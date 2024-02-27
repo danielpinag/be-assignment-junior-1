@@ -3,6 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.0.0'
 
+gem 'bootsnap', require: false
 gem 'devise'
 gem 'interactor'
 gem 'jbuilder', '~> 2.7'
