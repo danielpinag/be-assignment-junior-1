@@ -9,7 +9,7 @@ class Expense::Share < ApplicationRecord
 
   enum status: { pending: 'pending', paid: 'paid', partially_paid: 'partially_paid' }
 
-  scope :to_pay_to, ->(expense_owner) { joins(:expense).where(expenses: { owner_id: expense_owner.id }, status: %i[pending partially_paid]) }
+  scope :to_pay_to, ->(expense_owner) { joins(:expense).where(expenses: { owner_id: expense_owner.id }, status: %i[pending partially_paid]).where.not(user_id: expense_owner.id) }
 
   def paid_amount
     payments.sum(:amount)

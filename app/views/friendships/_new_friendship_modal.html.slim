@@ -5,7 +5,7 @@
         h5.modal-title Add Friend
 
       .modal-body
-        = form_for @friendship, url: friendships_path, method: :post do |f|
+        = form_for Friendship.new, url: friendships_path, method: :post do |f|
           .form-group
             = f.label :friend_id, 'Friend'
             = f.select :friend_id,
