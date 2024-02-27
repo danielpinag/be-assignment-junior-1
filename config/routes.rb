@@ -9,4 +9,6 @@ Rails.application.routes.draw do
   resources :friendships, only: %i[index create destroy] do
     patch 'accept', on: :member
   end
+
+  resources :users, only: %i[show]
 end

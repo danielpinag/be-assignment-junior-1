@@ -2,15 +2,16 @@
 
 class FriendshipsController < ApplicationController
   def index
+    @friendship = Friendship.new
     @friends = current_user.friends
-    @friend_requests_sent = current_user.friend_requests_sent.includes(:friend)
-    @friend_requests_received = current_user.friend_requests_received.includes(:user)
+    @friend_requests_sent = current_user.pending_friend_requests_sent
+    @friend_requests_received = current_user.pending_friend_requests_received
   end
 
   def create
     result = Friendships::Create.call(
       user: current_user,
-      friend_id: params[:friend_id]
+      friend_id: friendship_params[:friend_id]
     )
 
     if result.success?
@@ -35,6 +36,6 @@ class FriendshipsController < ApplicationController
   end
 
   def friendship_params
-    params.require(:friendship).permit(:user_id, :friend_id)
+    params.require(:friendship).permit(:friend_id)
   end
 end

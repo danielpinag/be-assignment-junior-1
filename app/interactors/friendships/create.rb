@@ -2,7 +2,7 @@
 
 class Friendships::Create < ApplicationInteractor
   def call
-    friendship = context.user.friendships.build(friend_id: context.friend_id)
+    friendship = context.user.friend_requests_sent.build(friend_id: context.friend_id)
 
     if friendship.save
       context.friendship = friendship
