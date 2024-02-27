@@ -5,7 +5,7 @@
     "@babel/preset-env"
   ],
   "engines": {
-    "node": "14.x"
+    "node": "21.6.2"
   },
   "dependencies": {
     "@babel/plugin-proposal-private-methods": "^7.18.6",
