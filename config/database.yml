@@ -4,15 +4,15 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
-    <<: *default
-    database: <%= ENV['DB_NAME'] || 'be_assignment_junior_1_development' %>
+  <<: *default
+  database: <%= ENV['DB_NAME'] || 'be_assignment_junior_1_development' %>
 
 test:
   <<: *default
   database: <%= ENV['DB_NAME'] || 'be_assignment_junior_1_test' %>
 
 production:
-    <<: *default
-    database: <%= ENV['DB_NAME'] || 'be_assignment_junior_1_production
-    username: <%= ENV['DB_USER'] || 'be_assignment_junior_1' %>
-    password: <%= ENV['DB_PASSWORD'] || 'be_assignment_junior_1' %>
+  <<: *default
+  database: <%= ENV['DB_NAME'] || 'be_assignment_junior_1_production' %>
+  username: <%= ENV['DB_USER'] || 'be_assignment_junior_1' %>
+  password: <%= ENV['DB_PASSWORD'] || 'be_assignment_junior_1' %>
