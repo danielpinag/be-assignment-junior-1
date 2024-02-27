@@ -18,4 +18,8 @@ class Expense::Share < ApplicationRecord
   def remaining_amount
     amount - paid_amount
   end
+
+  def owner_name_and_amount
+    "#{expense.owner.name} - #{amount}"
+  end
 end

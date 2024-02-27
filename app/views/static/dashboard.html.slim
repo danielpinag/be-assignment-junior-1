@@ -15,7 +15,7 @@
       h1.top-bar-title Dashboard
       .top-bar-actions
         button.btn.btn-primary type="button" data-bs-toggle="modal" data-bs-target="#newExpenseModal"  Add an expense
-        button.btn.btn-secondary type="button"  Settle up
+        button.btn.btn-secondary type="button" data-bs-toggle="modal" data-bs-target="#settleUpModal"  Settle up
 
     .dashboard-balances
       .balances-bar
@@ -46,4 +46,5 @@
                 p = expense_share.user.name
                 p = "owes you #{number_to_currency(expense_share.remaining_amount)}"
 
+= render 'expenses/payments/settle_up_modal'
 = render 'expenses/new_expense_modal'
