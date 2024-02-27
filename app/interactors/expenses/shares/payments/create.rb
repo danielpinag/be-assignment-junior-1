@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
-
 class Expenses::Shares::Payments::Create < ApplicationInteractor
   def call
     method_id = if context.user.payment_methods.empty?
