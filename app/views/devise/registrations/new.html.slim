@@ -10,7 +10,14 @@ h1.h3.mb-3.fw-normal Please sign up
     .form-floating
       = f.input :password_confirmation, input_html: { autocomplete: 'off', class: 'form-control', id: 'floatingPasswordConfirm' }, label: false, wrapper: false
       label for="floatingPasswordConfirm" Password Confirmation
+    .form-floating
+      = f.input :name, input_html: { autocomplete: 'off', class: 'form-control', id: 'floatingName' }, label: false, wrapper: false
+      label for="floatingName" Name
+    .form-floating
+      = f.input :mobile_number, input_html: { autocomplete: 'off', class: 'form-control', id: 'floatingMobileNumber' }, label: false, wrapper: false
+      label for="floatingMobileNumber" Mobile Number
 
     = f.button :button, "Sign up", class: "w-100 btn btn-lg btn-primary", data: { button_name: "Log in" }
+
 
 = render "devise/shared/links"

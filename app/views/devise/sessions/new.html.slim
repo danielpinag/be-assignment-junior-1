@@ -1,11 +1,15 @@
 h1.h3.mb-3.fw-normal Please sign in
 = simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: "ulsa-login-form", autocomplete: "off"}) do |f|
   .form-group.mb-4
-    .form-floating
-      = f.input :email, input_html: { autocomplete: 'off', class: 'form-control', id: 'floatingInput' }, label: false, wrapper: false
-      label for="floatingInput" Email address
-    .form-floating
-      = f.input :password, input_html: { autocomplete: 'off', class: 'form-control', id: 'floatingPassword' }, label: false, wrapper: false
-      label for="floatingPassword" Password
+    .form-floating.m-3
+      = f.input :email, input_html: { autocomplete: 'off', class: 'form-control', id: 'floatingInputEmail' }, label: false, wrapper: false
+      label for="floatingInputEmail" Email address
+    .form-floating.m-3
+      = f.input :password, input_html: { autocomplete: 'off', class: 'form-control', id: 'floatingInputPassword' }, label: false, wrapper: false
+      label for="floatingInputPassword" Password
 
-    = f.button :button, "Log in", class: "w-100 btn btn-lg btn-primary", data: {class_name: 'ulsa-login-form', button_name: "Log in"}
+    = f.button :button, "Log in", class: "w-100 btn btn-lg btn-primary m-3", data: {class_name: 'ulsa-login-form', button_name: "Log in"}
+    .mt-3
+      = link_to "Forgot your password?", new_password_path(resource_name), class: "text-muted m-3"
+      .mt-3
+        = link_to "Sign up", new_registration_path(resource_name), class: "text-muted m-3"
