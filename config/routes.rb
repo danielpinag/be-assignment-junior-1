@@ -12,4 +12,10 @@ Rails.application.routes.draw do
   resources :users, only: %i[show]
 
   resources :expenses, only: %i[create]
+
+  namespace :expenses do
+    resources :shares do
+      resources :payments, only: %i[create], controller: 'shares/payments'
+    end
+  end
 end

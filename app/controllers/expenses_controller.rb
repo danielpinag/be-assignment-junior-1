@@ -2,7 +2,6 @@
 
 class ExpensesController < ApplicationController
   def create
-    byebug
     result = Expenses::Create.call(user: current_user, expense_params: expense_params.to_h)
 
     if result.success?
@@ -15,7 +14,8 @@ class ExpensesController < ApplicationController
   private
 
   def expense_params
-    params[:expense][:users_params] = JSON.parse(params[:expense][:users_params])
+    user_params = params[:expense][:users_params]
+    params[:expense][:users_params] = JSON.parse(user_params) if user_params.present? && user_params.is_a?(String)
     params.require(:expense).permit(:amount, :name, :description, :equally_shared, users_params: [:user_id, :amount])
   end
 end
