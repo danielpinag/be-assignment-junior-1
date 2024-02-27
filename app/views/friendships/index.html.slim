@@ -1,0 +1,39 @@
+.section
+  .scrollable-column
+    p.friends-list-header FRIENDS
+    - if @friends.present?
+      - @friends.each do |friend|
+        .friend-name
+          div.inline-elements
+            = friend.name
+            = button_to 'See friend', user_path(friend), method: :get
+            = button_to 'Unfriend', friendship_path(friend.friendship_with(current_user)), method: :delete, data: { confirm: 'Are you sure?' }
+    - else
+      p No friends yet
+
+  .scrollable-column
+    p.sent-requests-list-header SENT REQUESTS
+    - if @friend_requests_sent.present?
+      - @friend_requests_sent.each do |request|
+        .sent-request-name
+          div.inline-elements
+            = request.friend.name
+            = button_to 'Cancel', friendship_path(request), method: :delete, data: { confirm: 'Are you sure?' }
+    - else
+      p No sent requests yet
+
+  .scrollable-column
+    p.received-requests-list-header RECEIVED REQUESTS
+    - if @friend_requests_received.present?
+      - @friend_requests_received.each do |request|
+        .received-request-name
+          div.inline-elements
+            = request.user.name
+            = button_to 'Accept', accept_friendship_path(request), method: :patch
+            = button_to 'Decline', friendship_path(request), method: :delete, data: { confirm: 'Are you sure?' }
+    - else
+      p No received requests yet
+
+button.btn.btn-primary type="button" data-bs-toggle="modal" data-bs-target="#newFriendshipModal"  Add a friend
+
+= render 'friendships/new_friendship_modal'

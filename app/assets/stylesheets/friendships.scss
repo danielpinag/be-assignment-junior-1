@@ -1,0 +1,30 @@
+.section {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+}
+
+.scrollable-column {
+  width: 30%;
+  height: 500px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+.friends-list-header,
+.sent-requests-list-header,
+.received-requests-list-header {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.friend-name,
+.sent-request-name,
+.received-request-name {
+  margin-bottom: 10px;
+}

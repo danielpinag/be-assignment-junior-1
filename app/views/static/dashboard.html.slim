@@ -2,8 +2,12 @@
   aside.side-bar-area
     .friends-list
       p.friends-list-header FRIENDS
-      a.friend-name anbu
-      a.friend-name barath
+      - if @friends.present?
+        - @friends.each do |user|
+          .friend-name= user.name
+      - else
+        p No friends yet
+    = link_to 'Friends Section', friendships_path, class: 'btn btn-primary'
   .main-area
     .top-bar
       h1.top-bar-title Dashboard
@@ -47,7 +51,7 @@
             .user-info
               p anbu
               p owes you $11.50
-#expenseModal.modal.fade aria-hidden="true" aria-labelledby="expenseModalLabel" tabindex="-1" 
+#expenseModal.modal.fade aria-hidden="true" aria-labelledby="expenseModalLabel" tabindex="-1"
   .modal-dialog
     .modal-content
       .modal-header

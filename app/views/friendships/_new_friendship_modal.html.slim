@@ -1,0 +1,16 @@
+#newFriendshipModal.modal.fade tabindex="-1" role="dialog"
+  .modal-dialog role="document"
+    .modal-content
+      .modal-header
+        h5.modal-title Add Friend
+        button.close type="button" data-dismiss="modal" aria-label="Close"
+          span aria-hidden="true" &times;
+      .modal-body
+        = form_for @friendship, url: friendships_path, method: :post do |f|
+          .form-group
+            = f.label :friend_id, 'Friend'
+            = f.select :friend_id,
+                    User.where.not(id: (@friend_requests_sent + @friend_requests_received + @friends).map(&:id)).map { |user| [user.name, user.id] },
+                    { include_blank: 'Select a friend' },
+                    { class: 'form-control' }
+          = f.submit 'Add Friend', class: 'btn btn-primary'
