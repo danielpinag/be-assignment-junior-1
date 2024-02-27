@@ -1,0 +1,95 @@
+#newExpenseModal.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        h4.modal-title New Expense
+      .modal-body
+         = form_with model: Expense.new, url: expenses_path, method: :post, local: true, class: 'expense-form' do |f|
+          .form-group
+            = f.label :name
+            = f.text_field :name, class: 'form-control'
+          .form-group
+            = f.label :description
+            = f.text_area :description, class: 'form-control'
+          .form-group
+            = f.label :amount
+            = f.number_field :amount, class: 'form-control'
+          .form-group
+            = f.label :equally_shared, class: 'equally-shared-label'
+            = f.check_box :equally_shared, {}, true, false
+          .form-group
+            = f.label :users_params, 'Select Friends'
+            .friends-container
+              - ([current_user] + current_user.friends).each do |friend|
+                .friend
+                  = check_box_tag 'expense[users_params][][user_id]', friend.id, false, class: 'friend-checkbox'
+                  = label_tag "expense_users_params_#{friend.id}", friend.name
+          #users-amounts
+          = f.submit 'Create Expense', class: 'btn btn-primary'
+      .modal-footer
+        = link_to 'Cancel', '#', class: 'btn', data: {dismiss: 'modal'}
+
+  javascript:
+
+      document.addEventListener('DOMContentLoaded', function () {
+          var friendCheckboxes = document.querySelectorAll('input.friend-checkbox');
+          var usersAmounts = document.querySelector('#users-amounts');
+          var equallySharedCheckbox = document.querySelector('input[name="expense[equally_shared]"]');
+
+          function updateUsersAmounts() {
+              usersAmounts.innerHTML = '';
+
+              Array.from(friendCheckboxes).forEach(function (checkbox) {
+                  var div = document.createElement('div')
+                  div.className = 'form-group';
+
+                  var label = document.createElement('label');
+                  label.textContent = 'Amount for ' + checkbox.nextSibling.textContent;
+                  div.appendChild(label);
+
+                  var input = document.createElement('input');
+                  input.type = 'number';
+                  input.name = 'expense[users_params][][amount]';
+                  input.dataset.userId = checkbox.value;
+                  input.className = 'form-control';
+
+                  if (!equallySharedCheckbox.checked && checkbox.checked) {
+                      div.appendChild(input);
+                      usersAmounts.appendChild(div);
+                  } else {
+                      input.style.display = 'none';
+                      label.style.display = 'none';
+                      div.appendChild(input);
+                      usersAmounts.appendChild(div);
+                  }
+              });
+          }
+
+          equallySharedCheckbox.addEventListener('change', updateUsersAmounts);
+          Array.from(friendCheckboxes).forEach(function (checkbox) {
+              checkbox.addEventListener('change', updateUsersAmounts);
+          });
+
+          updateUsersAmounts();
+
+          document.querySelector('.expense-form').addEventListener('submit', function () {
+              var amounts = Array.from(document.querySelectorAll('input[name="expense[users_params][][amount]"]'));
+              var usersParams = amounts.map(function (input) {
+                  return {user_id: input.dataset.userId, amount: input.value};
+              });
+
+              usersParams = usersParams.filter(function (params) {
+                  return params.user_id && params.amount;
+              });
+
+              var paramsInput = document.querySelector('input[name="expense[users_params]"]');
+
+              if (!paramsInput) {
+                  paramsInput = document.createElement('input');
+                  paramsInput.type = 'hidden';
+                  paramsInput.name = 'expense[users_params]';
+                  this.appendChild(paramsInput);
+              }
+              paramsInput.value = JSON.stringify(usersParams);
+          });
+      });

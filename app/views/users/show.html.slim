@@ -1,0 +1,19 @@
+h1.balance-title = @user.name
+p.balance-detail Total to pay: #{@expenses_to_pay_total}
+p.balance-detail Total to receive: #{@expenses_to_receive_total}
+p.balance-detail Total balance: #{@expenses_to_receive_total - @expenses_to_pay_total}
+
+.row
+  .col.expenses-to-pay
+    h2.expenses-title Expenses to Pay
+    - @expenses_to_pay.each do |expense_share|
+      .expense-share
+        h3.expense-name= expense_share.expense.name
+        p.expense-description= expense_share.expense.description
+
+  .col.expenses-to-receive
+    h2.expenses-title Expenses to Receive
+    - @expenses_to_receive.each do |expense_share|
+      .expense-share
+        h3.expense-name= expense_share.expense.name
+        p.expense-description= expense_share.expense.description

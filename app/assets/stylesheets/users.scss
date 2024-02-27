@@ -1,0 +1,55 @@
+.balance-title {
+  font-size: 2em;
+  color: #333;
+  padding-top: 20px;
+}
+
+.balance-detail {
+  font-size: 1.2em;
+  color: #666;
+}
+
+.expenses-title {
+  font-size: 1.5em;
+  color: #333;
+}
+
+.expenses-to-pay {
+  background-color: #f9f9f9;
+}
+
+.expenses-to-receive {
+  background-color: #f0f0f0;
+}
+
+.expense-share {
+  margin-bottom: 1em;
+}
+
+.expense-name {
+  font-size: 1.2em;
+  color: #333;
+}
+
+.expense-description {
+  font-size: 1em;
+  color: #666;
+}
+
+.friends-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  justify-content: left;
+}
+
+.friend {
+  margin: 10px;
+  padding: 10px;
+  width: 200px;
+  text-align: left;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
