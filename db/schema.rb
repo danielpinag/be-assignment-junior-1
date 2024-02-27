@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_02_24_175358) do
+ActiveRecord::Schema.define(version: 2024_02_27_014953) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,16 @@ ActiveRecord::Schema.define(version: 2024_02_24_175358) do
     t.index ["owner_id"], name: "index_expenses_on_owner_id"
   end
 
+  create_table "friendships", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "friend_id", null: false
+    t.string "status", default: "pending"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["friend_id"], name: "index_friendships_on_friend_id"
+    t.index ["user_id"], name: "index_friendships_on_user_id"
+  end
+
   create_table "payment_methods", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "name", null: false
@@ -135,5 +145,7 @@ ActiveRecord::Schema.define(version: 2024_02_24_175358) do
   add_foreign_key "expense_shares", "users"
   add_foreign_key "expenses", "expense_categories", column: "category_id"
   add_foreign_key "expenses", "users", column: "owner_id"
+  add_foreign_key "friendships", "users"
+  add_foreign_key "friendships", "users", column: "friend_id"
   add_foreign_key "payment_methods", "users"
 end
