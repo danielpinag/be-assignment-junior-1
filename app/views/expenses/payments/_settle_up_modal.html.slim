@@ -2,29 +2,25 @@
   .modal-dialog
     .modal-content
       .modal-header
-        h5#settleUpModalLabel.modal-title Settle Up
+        h5.modal-title Settle Up
         button.btn-close type="button" data-bs-dismiss="modal" aria-label="Close"
       .modal-body
         .select-share
           = select_tag "selected_share_id", options_from_collection_for_select(@current_user_expense_shares, "id", "owner_name_and_amount"), prompt: "Select a share"
-        = form_for Expense::Share::Payment.new, url: '#', method: :post, html: { multipart: true }, id: 'settleUpForm' do |f|
-          .mb-3
-            = f.label :amount, class: 'form-label'
-            = f.number_field :amount, class: 'form-control', step: 'any', required: true
-          .mb-3
-            = f.label :proof, class: 'form-label'
-            = f.file_field :proof, accept: 'image/png,image/gif,image/jpeg', required: true
-          = f.submit 'Submit', class: 'btn btn-primary'
+        .form-container
       .modal-footer
         button.btn.btn-secondary type="button" data-bs-dismiss="modal" Close
 
 javascript:
     document.addEventListener('DOMContentLoaded', function () {
         const selectShare = document.querySelector('.select-share select');
-        const settleUpForm = document.querySelector('#settleUpForm');
-
-        settleUpForm.addEventListener('submit', function (event) {
+        selectShare.addEventListener('change', function (event) {
             const selectedShareId = selectShare.value;
-            settleUpForm.action = `/expenses/shares/${selectedShareId}/payments`;
+            fetch(`/expenses/shares/${selectedShareId}/new_payment`)
+                .then(response => response.text())
+                .then(form => {
+                    const formContainer = document.querySelector('.form-container');
+                    formContainer.innerHTML = form;
+                });
         });
     });

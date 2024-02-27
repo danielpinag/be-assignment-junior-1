@@ -18,6 +18,6 @@ class Expenses::Shares::PaymentsController < ApplicationController
   end
 
   def payment_params
-    params.require(:payment).permit(:amount, :proof)
+    params.require(:expense_share_payment).permit(:amount, :proof)
   end
 end
