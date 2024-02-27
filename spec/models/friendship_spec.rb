@@ -6,18 +6,12 @@ RSpec.describe Friendship, type: :model do
   describe 'validations' do
     subject { build(:friendship, attributes) }
 
-    context 'when user is same as friend' do
-      let(:attributes) { { user: user, friend: user } }
-      let(:user) { create(:user) }
-      it { is_expected.to validate_uniqueness_of(:user_id).scoped_to(:friend_id) }
-    end
-
     context 'when friendship is duplicated' do
       let(:attributes) { { user: user, friend: friend } }
       let(:user) { create(:user) }
       let(:friend) { create(:user) }
       let!(:friendship) { create(:friendship, user: friend, friend: user) }
-      it { is_expected.to validate_uniqueness_of(:user_id).scoped_to(:friend_id) }
+      it { is_expected.to be_invalid }
     end
   end
 

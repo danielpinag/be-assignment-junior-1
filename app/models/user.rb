@@ -33,13 +33,4 @@ class User < ApplicationRecord
   def pending_friend_requests_received
     friend_requests_received.pending
   end
-
-  def expense_shares_to_pay
-    expense_shares.where(status: [:pending, :partially_paid])
-                  .where.not(expense: owned_expenses)
-  end
-
-  def expense_shares_to_receive_from(user)
-    user.expense_shares_to_pay.where(user: self)
-  end
 end

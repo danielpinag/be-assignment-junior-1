@@ -29,7 +29,7 @@ RSpec.describe FriendshipsController, type: :controller do
   describe 'POST #create' do
     context 'when the friend request is successful' do
       it 'redirects to the friendships path with a success notice' do
-        post :create, params: { friend_id: friend.id }
+        post :create, params: { friendship: { friend_id: friend.id } }
         expect(response).to redirect_to(friendships_path)
         expect(flash[:notice]).to eq('Friend request sent')
       end
@@ -41,7 +41,7 @@ RSpec.describe FriendshipsController, type: :controller do
       end
 
       it 'redirects to the friendships path with an error alert' do
-        post :create, params: { friend_id: friend.id }
+        post :create, params: { friendship: { friend_id: friend.id } }
         expect(response).to redirect_to(friendships_path)
         expect(flash[:alert]).to eq('Error message')
       end
