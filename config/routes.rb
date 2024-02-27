@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   }
 
   root to: "static#dashboard"
-  get 'people/:id', to: 'static#person'
 
   resources :friendships, only: %i[index create destroy] do
     patch 'accept', on: :member
